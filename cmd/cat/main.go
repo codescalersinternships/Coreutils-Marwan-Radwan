@@ -11,7 +11,7 @@ func main() {
 	filePath := os.Args[len(os.Args)-1]
 
 	// -n flag : to number the output lines
-	nFlag := flag.Bool("n", false, "number of lines to print")
+	nFlag := flag.Bool("n", false, "to number output lines")
 
 	// -h flag : print help message
 	flag.Usage = func() {
