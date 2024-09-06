@@ -8,11 +8,8 @@ import (
 )
 
 func main() {
-
-	// -n flag : to specify the number of lines to print
 	numLines := flag.Int("n", 10, "print the first n lines instead of the first 10")
 
-	// -h flag : print help message
 	flag.Usage = func() {
 		fmt.Println("Usage: head [options] [file]")
 		fmt.Println("Options:")

@@ -6,10 +6,8 @@ import (
 )
 
 func main() {
-	// -n flag : suppress trailing newline
 	omitNewline := flag.Bool("n", false, "do not output the trailing newline")
 
-	// -h flag : print help message
 	flag.Usage = func() {
 		fmt.Println("Usage: echo [options] [text...]")
 		fmt.Println("Options:")

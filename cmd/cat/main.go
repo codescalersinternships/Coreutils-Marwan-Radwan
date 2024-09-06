@@ -8,10 +8,8 @@ import (
 )
 
 func main() {
-	// -n flag : to number the output lines
 	nFlag := flag.Bool("n", false, "to number output lines")
 
-	// -h flag : print help message
 	flag.Usage = func() {
 		fmt.Println("Usage: cat [options] [file]")
 		fmt.Println("Options:")

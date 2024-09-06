@@ -33,10 +33,8 @@ func tree(path string, curDepth int, maxDepth int, numDirs *int, numFiles *int) 
 }
 
 func main() {
-	// -l flag : specify the depth level
 	depth := flag.Int("l", 2, "specify the depth level")
 
-	// -h flag : print help message
 	flag.Usage = func() {
 		fmt.Println("Usage: tree [options] [file]")
 		fmt.Println("Options:")

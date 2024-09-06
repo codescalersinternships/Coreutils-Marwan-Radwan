@@ -9,14 +9,10 @@ import (
 )
 
 func main() {
-	// -l flag : print the number of lines
 	numLines := flag.Bool("l", false, "print the number of lines")
-	// -w flag : print the number of words
 	numWords := flag.Bool("w", false, "print the number of words")
-	// -c flag : print the number of characters
 	numChars := flag.Bool("c", false, "print the number of characters")
 
-	// -h flag : print help message
 	flag.Usage = func() {
 		fmt.Println("Usage: wc [options] [file]")
 		fmt.Println("Options:")
