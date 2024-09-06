@@ -9,8 +9,6 @@ import (
 )
 
 func main() {
-	filePath := os.Args[len(os.Args)-1]
-
 	// -l flag : print the number of lines
 	numLines := flag.Bool("l", false, "print the number of lines")
 	// -w flag : print the number of words
@@ -26,6 +24,8 @@ func main() {
 	}
 
 	flag.Parse()
+
+	filePath := flag.Arg(0)
 
 	file, err := os.Open(filePath)
 	if err != nil {

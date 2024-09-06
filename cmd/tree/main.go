@@ -22,7 +22,6 @@ func tree(path string, curDepth int, maxDepth int, numDirs *int, numFiles *int) 
 		}
 		if f.IsDir() {
 			*numDirs++
-			// Recurse into the directory til reach files
 			fmt.Println("├──", f.Name())
 			tree(path+"/"+f.Name(), curDepth+1, maxDepth, numDirs, numFiles)
 		} else {
@@ -34,8 +33,6 @@ func tree(path string, curDepth int, maxDepth int, numDirs *int, numFiles *int) 
 }
 
 func main() {
-	path := os.Args[len(os.Args)-1]
-
 	// -l flag : specify the depth level
 	depth := flag.Int("l", 2, "specify the depth level")
 
@@ -47,6 +44,8 @@ func main() {
 	}
 
 	flag.Parse()
+
+	path := flag.Arg(0)
 
 	numFiles := 0
 	numDirs := 0

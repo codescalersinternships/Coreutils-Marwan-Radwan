@@ -8,7 +8,6 @@ import (
 )
 
 func main() {
-	filePath := os.Args[len(os.Args)-1]
 
 	// -n flag : to specify the number of lines to print
 	numLines := flag.Int("n", 10, "print the first n lines instead of the first 10")
@@ -21,6 +20,8 @@ func main() {
 	}
 
 	flag.Parse()
+
+	filePath := flag.Arg(0)
 
 	file, err := os.Open(filePath)
 	if err != nil {

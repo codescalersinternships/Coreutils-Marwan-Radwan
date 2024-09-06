@@ -3,13 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
-	"os"
-	"strings"
 )
 
 func main() {
-	startIndex := 1
-
 	// -n flag : suppress trailing newline
 	omitNewline := flag.Bool("n", false, "do not output the trailing newline")
 
@@ -22,12 +18,7 @@ func main() {
 
 	flag.Parse()
 
-	if *omitNewline {
-		startIndex = 2
-	}
-
-	args := os.Args[startIndex:]
-	text := strings.Join(args, " ")
+	text := flag.Arg(0)
 
 	if *omitNewline {
 		fmt.Print(text)

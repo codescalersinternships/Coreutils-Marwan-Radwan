@@ -8,8 +8,6 @@ import (
 )
 
 func main() {
-	filePath := os.Args[len(os.Args)-1]
-
 	// -n flag : to number the output lines
 	nFlag := flag.Bool("n", false, "to number output lines")
 
@@ -21,6 +19,8 @@ func main() {
 	}
 
 	flag.Parse()
+
+	filePath := flag.Arg(0)
 
 	file, err := os.Open(filePath)
 	if err != nil {
