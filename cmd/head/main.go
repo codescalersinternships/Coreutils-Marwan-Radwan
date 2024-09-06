@@ -4,11 +4,13 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
+	"log"
 	"os"
 )
 
 func main() {
-	numLines := flag.Int("n", 10, "print the first n lines instead of the first 10")
+	var numLines uint
+	flag.UintVar(&numLines, "n", 10, "print the first n lines instead of the first 10")
 
 	flag.Usage = func() {
 		fmt.Println("Usage: head [options] [file]")
@@ -22,8 +24,7 @@ func main() {
 
 	file, err := os.Open(filePath)
 	if err != nil {
-		fmt.Println("No such file or directory")
-		os.Exit(1)
+		log.Fatalf("Error happened: %v", err)
 	}
 	defer file.Close()
 
@@ -33,7 +34,7 @@ func main() {
 	for scanner.Scan() {
 		fmt.Println(scanner.Text())
 		lineCnt++
-		if lineCnt == *numLines {
+		if lineCnt == int(numLines) {
 			break
 		}
 	}

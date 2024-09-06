@@ -9,9 +9,10 @@ import (
 )
 
 func main() {
-	numLines := flag.Bool("l", false, "print the number of lines")
-	numWords := flag.Bool("w", false, "print the number of words")
-	numChars := flag.Bool("c", false, "print the number of characters")
+	var numLines, numWords, numChars bool
+	flag.BoolVar(&numLines, "l", false, "print the number of lines")
+	flag.BoolVar(&numWords, "w", false, "print the number of words")
+	flag.BoolVar(&numChars, "c", false, "print the number of characters")
 
 	flag.Usage = func() {
 		fmt.Println("Usage: wc [options] [file]")
@@ -42,16 +43,16 @@ func main() {
 		wordsCnt += len(strings.Split(scanner.Text(), " "))
 	}
 
-	if *numLines {
+	if numLines {
 		fmt.Printf("%d ", linesCnt)
 	}
-	if *numWords {
+	if numWords {
 		fmt.Printf("%d ", wordsCnt)
 	}
-	if *numChars {
+	if numChars {
 		fmt.Printf("%d ", charsCnt)
 	}
-	if !*numLines && !*numWords && !*numChars {
+	if !numLines && !numWords && !numChars {
 		fmt.Printf("%d %d %d", linesCnt, wordsCnt, charsCnt)
 	}
 

@@ -4,11 +4,13 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
+	"log"
 	"os"
 )
 
 func main() {
-	nFlag := flag.Bool("n", false, "to number output lines")
+	var nFlag bool
+	flag.BoolVar(&nFlag, "n", false, "to number output lines")
 
 	flag.Usage = func() {
 		fmt.Println("Usage: cat [options] [file]")
@@ -22,8 +24,7 @@ func main() {
 
 	file, err := os.Open(filePath)
 	if err != nil {
-		fmt.Println("No such file or directory")
-		os.Exit(1)
+		log.Fatalf("Error happened: %v", err)
 	}
 	defer file.Close()
 
@@ -31,7 +32,7 @@ func main() {
 
 	lineCnt := 1
 	for scanner.Scan() {
-		if *nFlag {
+		if nFlag {
 			fmt.Printf("%d ", lineCnt)
 		}
 		fmt.Println(scanner.Text())

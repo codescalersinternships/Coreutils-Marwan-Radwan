@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 	"os"
 )
 
@@ -13,7 +14,7 @@ func tree(path string, curDepth int, maxDepth int, numDirs *int, numFiles *int) 
 
 	file, err := os.ReadDir(path)
 	if err != nil {
-		return
+		log.Fatalf("Error happened: %v", err)
 	}
 
 	for _, f := range file {
@@ -33,7 +34,8 @@ func tree(path string, curDepth int, maxDepth int, numDirs *int, numFiles *int) 
 }
 
 func main() {
-	depth := flag.Int("l", 2, "specify the depth level")
+	var depth uint
+	flag.UintVar(&depth, "l", 2, "specify the depth level")
 
 	flag.Usage = func() {
 		fmt.Println("Usage: tree [options] [file]")
@@ -47,7 +49,7 @@ func main() {
 
 	numFiles := 0
 	numDirs := 0
-	tree(path, 0, *depth, &numDirs, &numFiles)
+	tree(path, 0, int(depth), &numDirs, &numFiles)
 
 	fmt.Printf("%d directories, %d files\n", numDirs, numFiles)
 }

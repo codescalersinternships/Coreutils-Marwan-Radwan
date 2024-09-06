@@ -6,7 +6,8 @@ import (
 )
 
 func main() {
-	omitNewline := flag.Bool("n", false, "do not output the trailing newline")
+	var omitNewline bool
+	flag.BoolVar(&omitNewline, "n", false, "do not output the trailing newline")
 
 	flag.Usage = func() {
 		fmt.Println("Usage: echo [options] [text...]")
@@ -18,7 +19,7 @@ func main() {
 
 	text := flag.Arg(0)
 
-	if *omitNewline {
+	if omitNewline {
 		fmt.Print(text)
 	} else {
 		fmt.Println(text)
