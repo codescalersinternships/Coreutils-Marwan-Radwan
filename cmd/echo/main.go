@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"strings"
 )
 
 func main() {
@@ -17,7 +18,8 @@ func main() {
 
 	flag.Parse()
 
-	text := flag.Arg(0)
+	args := flag.Args()
+	text := strings.Join(args, " ")
 
 	if omitNewline {
 		fmt.Print(text)
