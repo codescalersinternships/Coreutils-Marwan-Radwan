@@ -20,13 +20,18 @@ func main() {
 
 	flag.Parse()
 
-	filePath := flag.Arg(0)
+	var file *os.File
 
-	file, err := os.Open(filePath)
-	if err != nil {
-		log.Fatalf("Error happened: %v", err)
+	if flag.NArg() == 0 {
+		file = os.Stdin
+	} else {
+		filePath := flag.Arg(0)
+		file, err := os.Open(filePath)
+		if err != nil {
+			log.Fatalf("Error happened: %v", err)
+		}
+		defer file.Close()
 	}
-	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
 
