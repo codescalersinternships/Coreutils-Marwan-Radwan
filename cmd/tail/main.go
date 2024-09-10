@@ -35,7 +35,16 @@ func main() {
 	for scanner.Scan() {
 		lines = append(lines, scanner.Text())
 	}
-	for _, line := range lines[len(lines)-int(numLines):] {
+
+	var startLineIndex uint
+	totalLines := uint(len(lines))
+	if totalLines < uint(numLines) {
+		startLineIndex = 0
+	} else {
+		startLineIndex = totalLines - uint(numLines)
+	}
+
+	for _, line := range lines[startLineIndex:] {
 		fmt.Println(line)
 	}
 }
