@@ -1,11 +1,11 @@
 package main
 
 import (
-	"bufio"
 	"flag"
 	"fmt"
 	"log"
-	"os"
+
+	"github.com/codescalersinternships/Coreutils-Marwan-Radwan/internal/head"
 )
 
 func main() {
@@ -20,28 +20,13 @@ func main() {
 
 	flag.Parse()
 
-	var file *os.File
-
-	if flag.NArg() == 0 {
-		file = os.Stdin
-	} else {
-		filePath := flag.Arg(0)
-
-		file, err := os.Open(filePath)
-		if err != nil {
-			log.Fatalf("Error happened: %v", err)
-		}
-		defer file.Close()
+	filePath := ""
+	if flag.NArg() > 0 {
+		filePath = flag.Arg(0)
 	}
 
-	scanner := bufio.NewScanner(file)
-
-	lineCnt := 0
-	for scanner.Scan() {
-		fmt.Println(scanner.Text())
-		lineCnt++
-		if lineCnt == int(numLines) {
-			break
-		}
+	err := head.Head(filePath, int(numLines))
+	if err != nil {
+		log.Fatalf("Error: %v", err)
 	}
 }

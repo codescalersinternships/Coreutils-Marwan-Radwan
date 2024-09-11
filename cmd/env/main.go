@@ -1,13 +1,9 @@
 package main
 
 import (
-	"fmt"
-	"os"
+	"github.com/codescalersinternships/Coreutils-Marwan-Radwan/internal/env"
 )
 
 func main() {
-	env := os.Environ()
-	for _, e := range env {
-		fmt.Println(e)
-	}
+	env.Env()
 }

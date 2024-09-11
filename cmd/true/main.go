@@ -1,9 +1,9 @@
 package main
 
 import (
-	"os"
+	"github.com/codescalersinternships/Coreutils-Marwan-Radwan/internal/true"
 )
 
 func main() {
-	os.Exit(0)
+	true.True()
 }

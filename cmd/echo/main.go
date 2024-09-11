@@ -4,6 +4,8 @@ import (
 	"flag"
 	"fmt"
 	"strings"
+
+	"github.com/codescalersinternships/Coreutils-Marwan-Radwan/internal/echo"
 )
 
 func main() {
@@ -21,9 +23,5 @@ func main() {
 	args := flag.Args()
 	text := strings.Join(args, " ")
 
-	if omitNewline {
-		fmt.Print(text)
-	} else {
-		fmt.Println(text)
-	}
+	echo.Echo(text, omitNewline)
 }

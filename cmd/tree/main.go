@@ -4,38 +4,9 @@ import (
 	"flag"
 	"fmt"
 	"log"
-	"os"
-	"path/filepath"
+
+	"github.com/codescalersinternships/Coreutils-Marwan-Radwan/internal/tree"
 )
-
-func tree(path string, curDepth int, maxDepth int, numDirs *int, numFiles *int) error {
-	if curDepth > maxDepth {
-		return nil
-	}
-
-	files, err := os.ReadDir(path)
-	if err != nil {
-		return fmt.Errorf("error happened: %v", err)
-	}
-
-	for _, f := range files {
-		for i := 1; i < curDepth; i++ {
-			fmt.Print("│   ")
-		}
-		if f.IsDir() {
-			*numDirs++
-			fmt.Println("├──", f.Name())
-			if err := tree(filepath.Join(path, f.Name()), curDepth+1, maxDepth, numDirs, numFiles); err != nil {
-				return err
-			}
-		} else {
-			*numFiles++
-			fmt.Println("└──", f.Name())
-		}
-	}
-
-	return nil
-}
 
 func main() {
 	var depth uint
@@ -54,12 +25,8 @@ func main() {
 		path = "."
 	}
 
-	numFiles := 0
-	numDirs := 0
-	err := tree(path, 0, int(depth), &numDirs, &numFiles)
+	err := tree.Tree(path, int(depth))
 	if err != nil {
-		log.Fatalln(err)
+		log.Fatalf("Error: %v", err)
 	}
-
-	fmt.Printf("%d directories, %d files\n", numDirs, numFiles)
 }
