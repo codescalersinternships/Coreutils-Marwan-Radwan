@@ -4,9 +4,30 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
+	"io"
+	"log"
 	"os"
 	"strings"
+	"unicode/utf8"
 )
+
+func countStats(reader io.Reader) (int, int, int, error) {
+	scanner := bufio.NewScanner(reader)
+	lineCount, wordCount, charCount := 0, 0, 0
+
+	for scanner.Scan() {
+		line := scanner.Text()
+		lineCount++
+		charCount += utf8.RuneCountInString(line)
+		wordCount += len(strings.Fields(line))
+	}
+
+	if err := scanner.Err(); err != nil {
+		return 0, 0, 0, fmt.Errorf("error reading input: %v", err)
+	}
+
+	return lineCount, wordCount, charCount, nil
+}
 
 func main() {
 	var numLines, numWords, numChars bool
@@ -22,39 +43,38 @@ func main() {
 
 	flag.Parse()
 
-	filePath := flag.Arg(0)
+	var reader io.Reader
+	var fileName string
 
-	file, err := os.Open(filePath)
-	if err != nil {
-		fmt.Println("No such file or directory")
-		os.Exit(1)
+	if flag.NArg() > 0 {
+		fileName = flag.Arg(0)
+		file, err := os.Open(fileName)
+		if err != nil {
+			log.Fatalf("Error: %v", err)
+		}
+		defer file.Close()
+		reader = file
+	} else {
+		reader = os.Stdin
 	}
-	defer file.Close()
 
-	scanner := bufio.NewScanner(file)
+	lineCount, wordCount, charCount, err := countStats(reader)
+	if err != nil {
+		log.Fatalf("Error: %v\n", err)
+	}
 
-	linesCnt := 0
-	wordsCnt := 0
-	charsCnt := 0
-
-	for scanner.Scan() {
-		linesCnt++
-		charsCnt += len(scanner.Text())
-		wordsCnt += len(strings.Split(scanner.Text(), " "))
+	if !numLines && !numWords && !numChars {
+		numLines, numWords, numChars = true, true, true
 	}
 
 	if numLines {
-		fmt.Printf("%d ", linesCnt)
+		fmt.Printf("%d ", lineCount)
 	}
 	if numWords {
-		fmt.Printf("%d ", wordsCnt)
+		fmt.Printf("%d ", wordCount)
 	}
 	if numChars {
-		fmt.Printf("%d ", charsCnt)
+		fmt.Printf("%d ", charCount)
 	}
-	if !numLines && !numWords && !numChars {
-		fmt.Printf("%d %d %d", linesCnt, wordsCnt, charsCnt)
-	}
-
-	fmt.Printf("%s\n", filePath)
+	fmt.Printf("%s\n", fileName)
 }
