@@ -1,0 +1,74 @@
+version: 2
+
+builds:
+  - main: ./cmd/cat
+    id: "cli"
+    binary: cli
+    goos:
+      - linux
+      - darwin
+      - windows
+
+  - main: ./cmd/echo
+    id: "echo"
+    binary: echo
+    goos:
+      - linux
+      - darwin
+      - windows
+
+  - main: ./cmd/env
+    id: "env"
+    binary: env
+    goos:
+      - linux
+      - darwin
+      - windows
+
+  - main: ./cmd/head
+    id: "head"
+    binary: head
+    goos:
+      - linux
+      - darwin
+      - windows
+
+  - main: ./cmd/tail
+    id: "tail"
+    binary: tail
+    goos:
+      - linux
+      - darwin
+      - windows
+
+  - main: ./cmd/tree
+    id: "tree"
+    binary: tree
+    goos:
+      - linux
+      - darwin
+      - windows
+
+  - main: ./cmd/wc
+    id: "wc"
+    binary: wc
+    goos:
+      - linux
+      - darwin
+      - windows
+
+  - main: ./cmd/false
+    id: "true"
+    binary: truee # true is reserved
+    goos:
+      - linux
+      - darwin
+      - windows
+
+  - main: ./cmd/false
+    id: "false"
+    binary: falsee # false is reserved
+    goos:
+      - linux
+      - darwin
+      - windows
